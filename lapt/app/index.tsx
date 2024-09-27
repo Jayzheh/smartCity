@@ -3,6 +3,8 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Marker } from 'react-native-maps';
 import { Platform } from 'react-native';
+import Navbar from '@/components/Navbar';
+import SearchBar from '@/components/SearchBar';
 
 export default function HomeScreen() {
   const strasbourgLocations = [
@@ -32,7 +34,9 @@ export default function HomeScreen() {
             title={location.title}
           />
         ))}
+      < SearchBar />  
       </MapView>
+      <Navbar />
     </View>
   );
 }
