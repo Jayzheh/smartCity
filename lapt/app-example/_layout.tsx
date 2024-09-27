@@ -35,6 +35,7 @@ export default function RootLayout() {
         <Tabs.Screen name="tickets" options={{ title: 'Tickets' }} />
         <Tabs.Screen name="messages" options={{ title: 'Messages' }} />
         <Tabs.Screen name="more" options={{ title: 'Plus' }} />
+        <Tabs.Screen name="tickets" options={{ title: 'Tickets' }} />
       </Tabs>
     </ThemeProvider>
   );

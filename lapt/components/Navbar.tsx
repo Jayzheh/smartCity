@@ -1,12 +1,14 @@
 ///Users/danlynmedou/Desktop/smartCity/lapt/components/Navbar.tsx
-import React from 'react';
+import React, { useState} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter, usePathname } from 'expo-router';
+import SearchModal from './SearchModal';
 
 const Navbar = () => {
     const router = useRouter();
     const pathname = usePathname();
+    const [isSearchModalVisible, setSearchModalVisible] = useState(false);
 
     const isActive = (routeName: string): boolean => {
         return pathname === routeName;
@@ -30,37 +32,44 @@ const Navbar = () => {
         ];
     };
 
+    const toggleSearchModal = () => {
+        setSearchModalVisible(!isSearchModalVisible);
+    };
+
     return (
-        <View style={styles.navbar}>
-            <TouchableOpacity 
-                style={getItemStyle('/')} 
-                onPress={() => router.push('/')}
-            >
-                <Ionicons name="search" size={24} color={getIconColor('/')} />
-                <Text style={getTextStyle('/')}>Recherche</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-                style={getItemStyle('/tickets')} 
-                onPress={() => router.push('/tickets' as never)}
-            >
-                <Ionicons name="ticket-outline" size={24} color={getIconColor('/tickets')} />
-                <Text style={getTextStyle('/tickets')}>Tickets</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-                style={getItemStyle('/messages')} 
-                onPress={() => router.push('/messages' as never)}
-            >
-                <Ionicons name="chatbubble-outline" size={24} color={getIconColor('/messages')} />
-                <Text style={getTextStyle('/messages')}>Messages</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-                style={getItemStyle('/more')} 
-                onPress={() => router.push('/more' as never)}
-            >
-                <Ionicons name="ellipsis-horizontal" size={24} color={getIconColor('/more')} />
-                <Text style={getTextStyle('/more')}>Plus</Text>
-            </TouchableOpacity>
-        </View>
+        <>
+            <SearchModal isVisible={isSearchModalVisible} onClose={toggleSearchModal} />
+            <View style={styles.navbar}>
+                <TouchableOpacity 
+                    style={getItemStyle('/')} 
+                    onPress={toggleSearchModal}
+                >
+                    <Ionicons name="search" size={24} color={getIconColor('/')} />
+                    <Text style={getTextStyle('/')}>Recherche</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={getItemStyle('/tickets')} 
+                    onPress={() => router.push('/tickets' as never)}
+                >
+                    <Ionicons name="ticket-outline" size={24} color={getIconColor('/tickets')} />
+                    <Text style={getTextStyle('/tickets')}>Tickets</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={getItemStyle('/messages')} 
+                    onPress={() => router.push('/messages' as never)}
+                >
+                    <Ionicons name="chatbubble-outline" size={24} color={getIconColor('/messages')} />
+                    <Text style={getTextStyle('/messages')}>Messages</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={getItemStyle('/more')} 
+                    onPress={() => router.push('/more' as never)}
+                >
+                    <Ionicons name="ellipsis-horizontal" size={24} color={getIconColor('/more')} />
+                    <Text style={getTextStyle('/more')}>Plus</Text>
+                </TouchableOpacity>
+            </View>
+        </>
     );
 };
 
@@ -77,6 +86,7 @@ const styles = StyleSheet.create({
       bottom : 0,
       left : 0,
       right : 0,
+      padding: 30,
     },
     navItem: {
       alignItems: 'center',
