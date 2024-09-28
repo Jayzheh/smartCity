@@ -1,4 +1,4 @@
-//index.tsx
+// /Users/danlynmedou/Desktop/smartCity/lapt/app/index.tsx
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Marker } from 'react-native-maps';
