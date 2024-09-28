@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import Modal from 'react-native-modal';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 interface SearchModalProps {
   isVisible: boolean;
@@ -18,6 +19,7 @@ interface RecentSearch {
 const SearchModal: React.FC<SearchModalProps> = ({ isVisible, onClose }) => {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
+  const router = useRouter();
 
   const recentSearches: RecentSearch[] = [
     { id: '1', from: 'L\'agence', to: 'Lazy Lake' },
@@ -40,6 +42,16 @@ const SearchModal: React.FC<SearchModalProps> = ({ isVisible, onClose }) => {
     </View>
   );
 
+  const handleToSubmit = () => {
+    if (to) {
+      router.push({
+        pathname: '/voyages',
+        params: { from, to }
+      });
+      onClose();
+    }
+  };
+  
   return (
     <Modal
       isVisible={isVisible}
@@ -65,6 +77,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isVisible, onClose }) => {
             placeholderTextColor="#999"
             value={to}
             onChangeText={setTo}
+            onSubmitEditing={handleToSubmit}
+            returnKeyType="go"
           />
         </View>
         <Text style={styles.recentSearchesTitle}>Voyages recherchés</Text>

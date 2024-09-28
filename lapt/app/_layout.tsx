@@ -5,9 +5,10 @@ import { Tabs } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
 import { useColorScheme } from '@/hooks/useColorScheme';
 import Navbar from '@/components/Navbar';
+import VoyageScreen from './voyages';
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,6 +36,7 @@ export default function RootLayout() {
         <Tabs.Screen name="tickets" options={{ title: 'Tickets' }} />
         <Tabs.Screen name="messages" options={{ title: 'Messages' }} />
         <Tabs.Screen name="more" options={{ title: 'Plus' }} />
+        <Tabs.Screen name="voyages" options={{ title: 'Voyages' }} />
       </Tabs>
     </ThemeProvider>
   );
