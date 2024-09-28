@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Navbar from '@/components/Navbar';
+import { useRouter } from 'expo-router';
 
 const MoreScreen = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const router = useRouter();
 
   const toggleDarkMode = () => setIsDarkMode(previousState => !previousState);
 
@@ -21,7 +23,7 @@ const MoreScreen = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Plus</Text>
       
-      <TouchableOpacity style={styles.accountCard}>
+      <TouchableOpacity style={styles.accountCard} onPress={() => router.push('/loginScreen')}>
         <View style={styles.accountIconContainer}>
           <Ionicons name="person" size={24} color="white" />
         </View>
