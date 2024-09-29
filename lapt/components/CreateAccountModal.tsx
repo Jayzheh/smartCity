@@ -1,7 +1,11 @@
 //
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput, Switch } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput, Switch, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
+const handleTermsPress = () => {
+  Linking.openURL('https://lapt-site.vercel.app/#');
+};
 
 interface CreateAccountModalProps {
   isVisible: boolean;
@@ -25,7 +29,7 @@ const CreateAccountModal: React.FC<CreateAccountModalProps> = ({ isVisible, onCl
           <TextInput style={styles.input} placeholder="Email address - mandatory" placeholderTextColor="#8e8e93" />
           <TextInput style={styles.input} placeholder="Password - mandatory" placeholderTextColor="#8e8e93" secureTextEntry />
           <Text style={styles.passwordHint}>Password must be at least eight characters including at least one number and one letter</Text>
-          <TouchableOpacity style={styles.termsButton}>
+          <TouchableOpacity style={styles.termsButton} onPress={handleTermsPress}>
             <Ionicons name="information-circle-outline" size={24} color="#0A84FF" />
             <Text style={styles.termsButtonText}>Read terms and conditions</Text>
           </TouchableOpacity>
