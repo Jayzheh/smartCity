@@ -2,15 +2,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Navbar from '@/components/Navbar';
+import { useTheme } from './ThemeContext';
 
 const TicketsScreen = () => {
+    const { theme, isDarkMode } = useTheme();
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
         <ScrollView style={styles.content} stickyHeaderIndices={[0]}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.title}>Tickets</Text>
+          <View style={[styles.headerContainer, { backgroundColor: theme.backgroundColor }]}>
+            <Text style={[styles.title, { color: theme.textColor }]}>Tickets</Text>
             <View style={styles.nfcCardContainer}>
-              <View style={styles.nfcCard}>
+              <View style={[styles.nfcCard, { backgroundColor: isDarkMode ? '#2c2c2e' : '#e0e0e0' }]}>
                 <Image
                   source={require('../assets/nfc-icon.png')} 
                   style={styles.nfcIcon}
@@ -18,44 +20,24 @@ const TicketsScreen = () => {
               </View>
             </View>
           </View>
-          <Text style={styles.sectionTitle}>Dernier ticket acheté</Text>
+          <Text style={[styles.sectionTitle, { color: theme.textColor }]}>Dernier ticket acheté</Text>
           <ScrollView style={styles.ticketsContainer}>
-            <View style={styles.ticketItem}>
-              <View>
-                <Text style={styles.ticketZone}>Zone 3</Text>
-                <Text style={styles.ticketDescription}>Trajet de bus à Lazy Lake</Text>
+            {[
+              { zone: 'Zone 3', description: 'Trajet de bus à Lazy Lake' },
+              { zone: 'Zone 2', description: 'Trajet de bus à Fatal Fields' },
+              { zone: 'Zone 1', description: 'Trajet de bus à Anger' },
+              { zone: 'Zone 3', description: 'Trajet de bus à Lazy Lake' },
+            ].map((ticket, index) => (
+              <View key={index} style={[styles.ticketItem, { backgroundColor: isDarkMode ? '#2c2c2e' : '#f0f0f0' }]}>
+                <View>
+                  <Text style={[styles.ticketZone, { color: theme.textColor }]}>{ticket.zone}</Text>
+                  <Text style={[styles.ticketDescription, { color: isDarkMode ? '#8e8e93' : '#666666' }]}>{ticket.description}</Text>
+                </View>
+                <TouchableOpacity style={[styles.receiptButton, { backgroundColor: isDarkMode ? '#3a3a3c' : '#d0d0d0' }]}>
+                  <Text style={[styles.receiptButtonText, { color: theme.accentColor }]}>Voir reçu</Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity style={styles.receiptButton}>
-                <Text style={styles.receiptButtonText}>Voir reçu</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.ticketItem}>
-              <View>
-                <Text style={styles.ticketZone}>Zone 2</Text>
-                <Text style={styles.ticketDescription}>Trajet de bus à Fatal Fields</Text>
-              </View>
-              <TouchableOpacity style={styles.receiptButton}>
-                <Text style={styles.receiptButtonText}>Voir reçu</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.ticketItem}>
-              <View>
-                <Text style={styles.ticketZone}>Zone 1</Text>
-                <Text style={styles.ticketDescription}>Trajet de bus à Anger</Text>
-              </View>
-              <TouchableOpacity style={styles.receiptButton}>
-                <Text style={styles.receiptButtonText}>Voir reçu</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.ticketItem}>
-              <View>
-                <Text style={styles.ticketZone}>Zone 3</Text>
-                <Text style={styles.ticketDescription}>Trajet de bus à Lazy Lake</Text>
-              </View>
-              <TouchableOpacity style={styles.receiptButton}>
-                <Text style={styles.receiptButtonText}>Voir reçu</Text>
-              </TouchableOpacity>
-            </View>
+            ))}
           </ScrollView>
         </ScrollView>
         <Navbar />
@@ -66,20 +48,17 @@ const TicketsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1c1c1e',
   },
   content: {
     flex: 1,
   },
   headerContainer: {
-    backgroundColor: '#1c1c1e',
     paddingHorizontal: 20,
     paddingTop: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: 'white',
     marginBottom: 20,
   },
   nfcCardContainer: {
@@ -88,7 +67,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   nfcCard: {
-    backgroundColor: '#2c2c2e',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -103,7 +81,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
     marginBottom: 10,
     paddingHorizontal: 20,
   },
@@ -111,7 +88,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   ticketItem: {
-    backgroundColor: '#2c2c2e',
     borderRadius: 10,
     padding: 45,
     marginBottom: 10,
@@ -122,20 +98,16 @@ const styles = StyleSheet.create({
   ticketZone: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
   },
   ticketDescription: {
     fontSize: 14,
-    color: '#8e8e93',
   },
   receiptButton: {
-    backgroundColor: '#3a3a3c',
     borderRadius: 15,
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
   receiptButtonText: {
-    color: '#0a84ff',
     fontSize: 12,
   },
 });

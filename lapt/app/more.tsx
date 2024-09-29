@@ -5,72 +5,71 @@ import { Ionicons } from '@expo/vector-icons';
 import Navbar from '@/components/Navbar';
 import LoginScreen from './loginScreen';
 import { useRouter } from 'expo-router';
+import { useTheme } from './ThemeContext';
 
 const MoreScreen = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const [showLoginScreen, setShowLoginScreen] = useState(false);
-  const router = useRouter();
-
-  const toggleDarkMode = () => setIsDarkMode(previousState => !previousState);
-
-  const renderListItem = (title: string, icon: string, showArrow: boolean = true, onPress?: () => void) => (
-    <TouchableOpacity style={styles.listItem} onPress={onPress}>
-      <Ionicons name={icon as any} size={24} color="#8e8e93" />
-      <Text style={styles.listItemText}>{title}</Text>
-      {showArrow && <Ionicons name="chevron-forward" size={24} color="#8e8e93" />}
-    </TouchableOpacity>
-  );
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Plus</Text>
-      
-      <TouchableOpacity 
-        style={styles.accountCard} 
-        onPress={() => setShowLoginScreen(true)}
-        >
-        <View style={styles.accountIconContainer}>
-          <Ionicons name="person" size={24} color="white" />
-        </View>
-        <View style={styles.accountInfo}>
-          <Text style={styles.accountTitle}>Mon compte</Text>
-          <Text style={styles.accountSubtitle}>Connectez-vous ou créez un compte pour bénéficier de nos avantages</Text>
-        </View>
-        <Ionicons name="chevron-forward" size={24} color="#8e8e93" />
+    const [showLoginScreen, setShowLoginScreen] = useState(false);
+    const router = useRouter();
+    const { isDarkMode, toggleTheme, theme } = useTheme();
+  
+    const renderListItem = (title: string, icon: string, showArrow: boolean = true, onPress?: () => void) => (
+      <TouchableOpacity style={[styles.listItem, { borderBottomColor: theme.accentColor }]} onPress={onPress}>
+        <Ionicons name={icon as any} size={24} color={theme.accentColor} />
+        <Text style={[styles.listItemText, { color: theme.textColor }]}>{title}</Text>
+        {showArrow && <Ionicons name="chevron-forward" size={24} color={theme.accentColor} />}
       </TouchableOpacity>
-
-      <Text style={styles.sectionTitle}>Mes Infos</Text>
-      {renderListItem('Numéro de téléphone', 'call-outline')}
-      {renderListItem('Options de Paiement', 'card-outline', true, () => router.push('/PaymentOptionsScreen'))}
-      {renderListItem('Coupons', 'pricetag-outline')}
-      {renderListItem('Reçus et historique des achats', 'receipt-outline')}
-
-      <View style={styles.darkModeContainer}>
-        <Text style={styles.darkModeText}>Mode Claire</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleDarkMode}
-          value={isDarkMode}
-        />
-      </View>
-
-      <Text style={styles.sectionTitle}>Paramètres</Text>
-      {renderListItem('Retirer des informations', 'information-circle-outline')}
-      {renderListItem('Info trafic et contrôle', 'bus-outline')}
-      {renderListItem('Language', 'language-outline')}
-
-      <Navbar />
-
-      {showLoginScreen && (
-        <View style={StyleSheet.absoluteFill}>
-            <LoginScreen onClose={() => setShowLoginScreen(false)} />
+    );
+  
+    return (
+      <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+        <Text style={[styles.title, { color: theme.textColor }]}>Plus</Text>
+        
+        <TouchableOpacity 
+          style={[styles.accountCard, { backgroundColor: theme.accentColor }]}
+          onPress={() => setShowLoginScreen(true)}
+        >
+          <View style={styles.accountIconContainer}>
+            <Ionicons name="person" size={24} color={theme.backgroundColor} />
+          </View>
+          <View style={styles.accountInfo}>
+            <Text style={[styles.accountTitle, { color: theme.backgroundColor }]}>Mon compte</Text>
+            <Text style={[styles.accountSubtitle, { color: theme.backgroundColor }]}>Connectez-vous ou créez un compte pour bénéficier de nos avantages</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={24} color={theme.backgroundColor} />
+        </TouchableOpacity>
+  
+        <Text style={[styles.sectionTitle, { color: theme.textColor }]}>Mes Infos</Text>
+        {renderListItem('Numéro de téléphone', 'call-outline')}
+        {renderListItem('Options de Paiement', 'card-outline', true, () => router.push('/PaymentOptionsScreen'))}
+        {renderListItem('Coupons', 'pricetag-outline')}
+        {renderListItem('Reçus et historique des achats', 'receipt-outline')}
+  
+        <View style={[styles.darkModeContainer, { borderBottomColor: theme.accentColor }]}>
+          <Text style={[styles.darkModeText, { color: theme.textColor }]}>Mode Claire</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: theme.accentColor }}
+            thumbColor={isDarkMode ? "#f4f3f4" : theme.backgroundColor}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleTheme}
+            value={!isDarkMode}
+          />
         </View>
+  
+        <Text style={[styles.sectionTitle, { color: theme.textColor }]}>Paramètres</Text>
+        {renderListItem('Retirer des informations', 'information-circle-outline')}
+        {renderListItem('Info trafic et contrôle', 'bus-outline')}
+        {renderListItem('Language', 'language-outline')}
+  
+        <Navbar />
+  
+        {showLoginScreen && (
+          <View style={StyleSheet.absoluteFill}>
+            <LoginScreen onClose={() => setShowLoginScreen(false)} />
+          </View>
         )}
-    </SafeAreaView>
-  );
-};
+      </SafeAreaView>
+    );
+  };
 
 const styles = StyleSheet.create({
   container: {

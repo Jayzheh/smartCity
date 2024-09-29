@@ -4,11 +4,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter, usePathname } from 'expo-router';
 import SearchModal from './SearchModal';
+import { useTheme } from '@/app/ThemeContext';
 
 const Navbar = () => {
     const router = useRouter();
     const pathname = usePathname();
     const [isSearchModalVisible, setSearchModalVisible] = useState(false);
+    const { theme, isDarkMode } = useTheme();
 
     const isActive = (routeName: string): boolean => {
         return pathname === routeName;
@@ -22,12 +24,13 @@ const Navbar = () => {
     };
 
     const getIconColor = (routeName: string): string => {
-        return isActive(routeName) ? '#e57373' : 'white';
+        return isActive(routeName) ? theme.accentColor : theme.textColor;
     };
 
     const getTextStyle = (routeName: string) => {
         return [
             styles.navText,
+            { color: isActive(routeName) ? theme.accentColor : theme.textColor },
             isActive(routeName) && styles.activeNavText
         ];
     };
@@ -39,7 +42,7 @@ const Navbar = () => {
     return (
         <>
             <SearchModal isVisible={isSearchModalVisible} onClose={toggleSearchModal} />
-            <View style={styles.navbar}>
+            <View style={[styles.navbar, { backgroundColor: theme.backgroundColor, borderTopColor: theme.accentColor }]}>
                 <TouchableOpacity 
                     style={getItemStyle('/')} 
                     onPress={toggleSearchModal}

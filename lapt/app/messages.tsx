@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Navbar from '@/components/Navbar';
+import { useTheme } from './ThemeContext';
 
 const MessagesScreen = () => {
   const [activeTab, setActiveTab] = useState('Traffic');
+   const { theme, isDarkMode } = useTheme();
 
   const tabs = ['Traffic', 'Perturbation', 'News'];
 
@@ -41,29 +43,29 @@ const MessagesScreen = () => {
       case 'Traffic':
         return (
           <>
-            <Text style={styles.sectionTitle}>INFORMATION TRAFIC</Text>
-            <View style={styles.messageItem}>
-              <Ionicons name="information-circle-outline" size={24} color="white" style={styles.icon} />
-              <Text style={styles.messageText}>Vous pouvez y consulter des informations sur le trafic.</Text>
+            <Text style={[styles.sectionTitle, { color: theme.textColor }]}>INFORMATION TRAFIC</Text>
+            <View style={[styles.messageItem, { backgroundColor: isDarkMode ? '#2c2c2e' : '#f0f0f0' }]}>
+                <Ionicons name="information-circle-outline" size={24} color={theme.textColor} style={styles.icon} />
+                <Text style={[styles.messageText, { color: theme.textColor }]}>Vous pouvez y consulter des informations sur le trafic.</Text>
             </View>
           </>
         );
       case 'Perturbation':
         return (
-          <View style={styles.messageItem}>
-            <Ionicons name="information-circle-outline" size={24} color="#8e8e93" style={styles.icon} />
+          <View style={[styles.messageItem, { backgroundColor: isDarkMode ? '#2c2c2e' : '#f0f0f0' }]}>
+            <Ionicons name="information-circle-outline" size={24} color={theme.textColor} style={styles.icon} />
             <View>
-              <Text style={styles.messageText}>Ici vous pouvez vous renseigner sur les incidents.</Text>
-              <Text style={styles.messageSubtext}>Et les incidents majeurs dans votre région.</Text>
+              <Text style={[styles.messageText, { color: theme.textColor }]}>Ici vous pouvez vous renseigner sur les incidents.</Text>
+              <Text style={[styles.messageSubtext, { color: theme.textColor }]}>Et les incidents majeurs dans votre région.</Text>
             </View>
           </View>
         );
         case 'News':
             return (
                 <>
-                <Text style={styles.sectionTitle}>NEWS</Text>
+                <Text style={[styles.sectionTitle, { color: theme.textColor }]}>NEWS</Text>
                 {newsItems.map((item, index) => (
-                    <View key={index} style={styles.newsContainer}>
+                    <View key={index} style={[styles.newsContainer, { backgroundColor: isDarkMode ? '#2c2c2e' : '#f0f0f0' }]}>
                     <View style={[styles.newsCard, { backgroundColor: item.color }]}>
                         <View style={styles.dateCircle}>
                         <Text style={styles.dateText}>{item.date.day}</Text>
@@ -86,16 +88,19 @@ const MessagesScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Messages</Text>
-      <View style={styles.tabContainer}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+      <Text style={[styles.title, { color: theme.textColor }]}>Messages</Text>
+      <View style={[styles.tabContainer, { borderBottomColor: theme.accentColor }]}>
         {tabs.map((tab) => (
           <TouchableOpacity
             key={tab}
             style={[styles.tab, activeTab === tab && styles.activeTab]}
             onPress={() => setActiveTab(tab)}
           >
-            <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>{tab}</Text>
+            <Text style={[
+              styles.tabText, 
+              { color: activeTab === tab ? theme.accentColor : theme.textColor }
+            ]}>{tab}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -105,24 +110,22 @@ const MessagesScreen = () => {
       <Navbar />
     </SafeAreaView>
   );
+  
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1c1c1e',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: 'white',
     padding: 20,
   },
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderBottomWidth: 1,
-    borderBottomColor: '#333',
   },
   tab: {
     paddingVertical: 10,
@@ -133,7 +136,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#0a84ff',
   },
   tabText: {
-    color: '#8e8e93',
     fontSize: 16,
   },
   activeTabText: {
@@ -144,12 +146,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   sectionTitle: {
-    color: '#8e8e93',
     fontSize: 12,
     marginBottom: 10,
   },
   messageItem: {
-    backgroundColor: '#2c2c2e',
     borderRadius: 10,
     padding: 15,
     flexDirection: 'row',
@@ -159,12 +159,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   messageText: {
-    color: 'white',
     fontSize: 14,
     flex: 1,
   },
   messageSubtext: {
-    color: '#8e8e93',
     fontSize: 12,
     marginTop: 5,
   },
