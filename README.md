@@ -37,7 +37,7 @@ Our app works seamlessly with our smart buses, which feature:
 
 ## Support
 
-For assistance, please contact our support team at support@busalasudoise.com.
+The website LAPT was created to accopanie this app, (https://github.com/Jayzheh/laptSite), https://lapt-site.vercel.app/#
 
 ## Privacy
 
