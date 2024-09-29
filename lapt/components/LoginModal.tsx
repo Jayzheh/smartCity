@@ -1,12 +1,16 @@
 // /Users/danlynmedou/Desktop/smartCity/lapt/components/LoginModal.tsx
 import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 interface LoginModalProps {
   isVisible: boolean;
   onClose: () => void;
 }
+
+const handleForgotPasswordPress = () => {
+  Linking.openURL('https://lapt-site.vercel.app/#');
+};
 
 const LoginModal: React.FC<LoginModalProps> = ({ isVisible, onClose }) => {
   return (
@@ -22,7 +26,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isVisible, onClose }) => {
           <TouchableOpacity style={styles.loginButton}>
             <Text style={styles.loginButtonText}>Log in</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleForgotPasswordPress}>
             <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
           </TouchableOpacity>
         </View>

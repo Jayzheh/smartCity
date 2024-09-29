@@ -1,8 +1,12 @@
 // /Users/danlynmedou/Desktop/smartCity/lapt/app/PaymentOptionsScreen.tsx
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Switch } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Switch, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+
+const handleLearnMorePress = () => {
+  Linking.openURL('https://lapt-site.vercel.app/#');
+};
 
 interface PaymentOption {
   title: string;
@@ -72,7 +76,7 @@ const DataSellOption: React.FC<DataSellOptionProps> = ({ title, enabled, onToggl
   <View style={styles.dataSellOption}>
     <View style={styles.dataSellOptionLeft}>
       <Text style={styles.dataSellOptionText}>{title}</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleLearnMorePress}>
         <Text style={styles.learnMoreText}>En savoir plus</Text>
       </TouchableOpacity>
     </View>

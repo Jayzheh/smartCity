@@ -92,25 +92,6 @@ const TrajetCard: React.FC<TrajetCardProps> = ({
       <TouchableOpacity style={styles.chooseTicketButton}>
         <Text style={styles.chooseTicketButtonText}>Choisir ce ticket</Text>
       </TouchableOpacity>
-
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="search" size={24} color="white" />
-          <Text style={styles.navText}>Recherche</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="ticket-outline" size={24} color="white" />
-          <Text style={styles.navText}>Tickets</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="chatbubble-outline" size={24} color="white" />
-          <Text style={styles.navText}>Messages</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="ellipsis-horizontal" size={24} color="white" />
-          <Text style={styles.navText}>Plus</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };
@@ -293,21 +274,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 16,
-  },
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderTopWidth: 1,
-    borderTopColor: '#2C2C2E',
-    paddingVertical: 8,
-  },
-  navItem: {
-    alignItems: 'center',
-  },
-  navText: {
-    color: 'white',
-    fontSize: 12,
-    marginTop: 4,
   },
 });
 

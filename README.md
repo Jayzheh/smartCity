@@ -45,4 +45,4 @@ We value your privacy. Please review our privacy policy in the app for informati
 
 ---
 
-Happy travels with Bus à la suédoise!
+Notion link: https://www.notion.so/Projet-SMART-CITY-05e1e16e5c3f4dc08b8711f723378384?pvs=4 
