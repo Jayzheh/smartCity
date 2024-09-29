@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Navbar from '@/components/Navbar';
+import LoginScreen from './loginScreen';
 import { useRouter } from 'expo-router';
 
 const MoreScreen = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [showLoginScreen, setShowLoginScreen] = useState(false);
   const router = useRouter();
 
   const toggleDarkMode = () => setIsDarkMode(previousState => !previousState);
 
-  const renderListItem = (title: string, icon: string, showArrow: boolean = true) => (
-    <TouchableOpacity style={styles.listItem}>
+  const renderListItem = (title: string, icon: string, showArrow: boolean = true, onPress?: () => void) => (
+    <TouchableOpacity style={styles.listItem} onPress={onPress}>
       <Ionicons name={icon as any} size={24} color="#8e8e93" />
       <Text style={styles.listItemText}>{title}</Text>
       {showArrow && <Ionicons name="chevron-forward" size={24} color="#8e8e93" />}
@@ -23,7 +25,10 @@ const MoreScreen = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Plus</Text>
       
-      <TouchableOpacity style={styles.accountCard} onPress={() => router.push('/loginScreen')}>
+      <TouchableOpacity 
+        style={styles.accountCard} 
+        onPress={() => setShowLoginScreen(true)}
+        >
         <View style={styles.accountIconContainer}>
           <Ionicons name="person" size={24} color="white" />
         </View>
@@ -36,7 +41,7 @@ const MoreScreen = () => {
 
       <Text style={styles.sectionTitle}>Mes Infos</Text>
       {renderListItem('Numéro de téléphone', 'call-outline')}
-      {renderListItem('Options de Paiement', 'card-outline')}
+      {renderListItem('Options de Paiement', 'card-outline', true, () => router.push('/PaymentOptionsScreen'))}
       {renderListItem('Coupons', 'pricetag-outline')}
       {renderListItem('Reçus et historique des achats', 'receipt-outline')}
 
@@ -57,6 +62,12 @@ const MoreScreen = () => {
       {renderListItem('Language', 'language-outline')}
 
       <Navbar />
+
+      {showLoginScreen && (
+        <View style={StyleSheet.absoluteFill}>
+            <LoginScreen onClose={() => setShowLoginScreen(false)} />
+        </View>
+        )}
     </SafeAreaView>
   );
 };
