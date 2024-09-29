@@ -51,6 +51,7 @@ interface Trip {
           duration={selectedTrip.duration}
           busLine={selectedTrip.line}
           busType="Bus de combat"
+          onClose={() => setSelectedTrip(null)}
         />
       );
     }

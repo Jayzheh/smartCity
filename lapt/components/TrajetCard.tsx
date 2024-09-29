@@ -13,6 +13,7 @@ interface TrajetCardProps {
   duration: string;
   busLine: string;
   busType: string;
+  onClose: () => void;
 }
 
 const TrajetCard: React.FC<TrajetCardProps> = ({
@@ -23,13 +24,14 @@ const TrajetCard: React.FC<TrajetCardProps> = ({
   duration,
   busLine,
   busType,
+  onClose,
 }) => {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={onClose}>
           <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Trajets</Text>
