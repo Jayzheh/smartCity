@@ -45,4 +45,6 @@ We value your privacy. Please review our privacy policy in the app for informati
 
 ---
 
-Notion link: https://www.notion.so/Projet-SMART-CITY-05e1e16e5c3f4dc08b8711f723378384?pvs=4 
+Notion link: https://www.notion.so/Projet-SMART-CITY-05e1e16e5c3f4dc08b8711f723378384
+
+Figma link: https://www.figma.com/design/w86M5Qwci4oKSrMLYgLJZW/LAPT?node-id=0-1&t=C4S2ttrpKtJrjUM8-1 
